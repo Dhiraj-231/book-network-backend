@@ -1,0 +1,29 @@
+services:
+    mysql:
+      container_name: mysql-bsn
+      image: mysql:5.7
+      environment:
+        MYSQL_ROOT_USERNAME: root
+        MYSQL_ROOT_PASSWORD: Dhiraj@123
+        MYSQLDATA: /var/lib/mysql/data
+        MYSQL_DATABASE: book_social_network
+      volumes:
+        - mysql:/var/lib/mysql
+      ports:
+        - 3307:3306
+      networks: 
+        - bsn-network
+      restart: unless-stopped
+    mail-dev:
+      container_name: mail-dev-bsn
+      image: maildev/maildev
+      ports:
+        - 1080:1080
+        - 1025:1025
+
+networks:
+    bsn-network:
+      driver: bridge
+volumes:
+    mysql:
+      driver: local
