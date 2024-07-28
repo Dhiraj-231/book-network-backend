@@ -11,7 +11,7 @@ import com.dhiraj.book.role.Role;
 import com.dhiraj.book.role.RoleRepository;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAsync
 public class BookNetworkApiApplication {
 
