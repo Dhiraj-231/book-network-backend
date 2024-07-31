@@ -2,6 +2,8 @@ package com.dhiraj.book.book;
 
 import org.springframework.stereotype.Service;
 
+import com.dhiraj.book.history.BookTransactionHistory;
+
 @Service
 class BookMapper {
 
@@ -14,6 +16,33 @@ class BookMapper {
                 .synopsis(request.synopsis())
                 .archived(false)
                 .shareable(request.shareable())
+                .build();
+    }
+
+    public BookResponse toBookResponse(Book book) {
+        return BookResponse.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .authorName(book.getAuthorName())
+                .isbn(book.getIsbn())
+                .synopsis(book.getSynopsis())
+                .rate(book.getRating())
+                .archived(book.isArchived())
+                .shareable(book.isShareable())
+                .owner(book.getOwner().fullName())
+                // Todo : Add cover
+                .build();
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
+        return BorrowedBookResponse.builder()
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRating())
+                .returned(history.isReturned())
+                .returnApproved(history.isReturnApproved())
                 .build();
     }
 
